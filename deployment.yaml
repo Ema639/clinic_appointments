@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clinic-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: clinic-api
+  template:
+    metadata:
+      labels:
+        app: clinic-api
+    spec:
+      containers:
+        - name: clinic-api
+          image: yourdockerhubusername/clinic-appointments:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DATABASE_URL
+              value: postgresql+asyncpg://postgres:postgres@clinic-db:5432/clinic
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: clinic-api-service
+spec:
+  type: ClusterIP
+  selector:
+    app: clinic-api
+  ports:
+    - port: 8000
+      targetPort: 8000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clinic-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: clinic-db
+  template:
+    metadata:
+      labels:
+        app: clinic-db
+    spec:
+      containers:
+        - name: clinic-db
+          image: postgres:15
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              value: postgres
+            - name: POSTGRES_DB
+              value: clinic
+          volumeMounts:
+            - name: clinic-db-storage
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: clinic-db-storage
+          emptyDir: { }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: clinic-db
+spec:
+  type: ClusterIP
+  selector:
+    app: clinic-db
+  ports:
+    - port: 5432
+      targetPort: 5432

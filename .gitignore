@@ -1,0 +1,73 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# VSCode
+.vscode/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pytest
+.cache/
+.pytest_cache/
+
+# MacOS
+.DS_Store
+
+# Virtualenv
+pip-log.txt
+
+# Docker
+docker-compose.override.yml
+
+# IDEs
+.idea/
+*.swp
+
+# Environment variables
+.env
+.env.*
+
+# Build
+build/
+dist/
+*.egg-info/
+
+# Database (optional, if you store local sqlite)
+*.sqlite3
+
+# Coverage
+htmlcov/
+.coverage
+.coverage.*
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# CI/CD artifacts
+.tox/
+.eggs/
+*.egg/
+*.whl
+
+# Node (if any frontend later)
+node_modules/
+npm-debug.log
+
+# Logs
+*.log
+
+# Misc
+*.bak
