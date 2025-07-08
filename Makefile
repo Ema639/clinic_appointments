@@ -25,7 +25,6 @@ down:
 	docker-compose down
 
 migrate:
-	# Пример миграции, если используешь Alembic
 	alembic upgrade head
 
 build:
